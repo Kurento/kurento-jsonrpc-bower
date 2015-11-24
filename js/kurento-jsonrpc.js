@@ -346,7 +346,27 @@ function JsonRpcClient(configuration) {
 
 
 module.exports = JsonRpcClient;
-},{"../..":5,"./transports/webSocketWithReconnection":4}],4:[function(_dereq_,module,exports){
+},{"../..":6,"./transports/webSocketWithReconnection":5}],4:[function(_dereq_,module,exports){
+/*
+ * (C) Copyright 2014 Kurento (http://kurento.org/)
+ *
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the GNU Lesser General Public License
+ * (LGPL) version 2.1 which accompanies this distribution, and is available at
+ * http://www.gnu.org/licenses/lgpl-2.1.html
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
+ * Lesser General Public License for more details.
+ *
+ */
+
+var WebSocketWithReconnection  = _dereq_('./webSocketWithReconnection');
+
+
+exports.WebSocketWithReconnection  = WebSocketWithReconnection;
+},{"./webSocketWithReconnection":5}],5:[function(_dereq_,module,exports){
 /*
  * (C) Copyright 2013-2015 Kurento (http://kurento.org/)
  *
@@ -569,7 +589,7 @@ function WebSocketWithReconnection(config) {
 }
 
 module.exports = WebSocketWithReconnection;
-},{"sockjs-client":12,"ws":73}],5:[function(_dereq_,module,exports){
+},{"sockjs-client":13,"ws":74}],6:[function(_dereq_,module,exports){
 /*
  * (C) Copyright 2014 Kurento (http://kurento.org/)
  *
@@ -1384,11 +1404,13 @@ RpcBuilder.RpcNotification = RpcNotification;
 module.exports = RpcBuilder;
 
 var clients = _dereq_('./clients');
+var transports = _dereq_('./clients/transports');
 
 RpcBuilder.clients = clients;
+RpcBuilder.clients.transports = transports;
 RpcBuilder.packers = packers;
 
-},{"./Mapper":1,"./clients":2,"./packers":8,"events":9,"inherits":11}],6:[function(_dereq_,module,exports){
+},{"./Mapper":1,"./clients":2,"./clients/transports":4,"./packers":9,"events":10,"inherits":12}],7:[function(_dereq_,module,exports){
 /**
  * JsonRPC 2.0 packer
  */
@@ -1492,7 +1514,7 @@ function unpack(message)
 exports.pack   = pack;
 exports.unpack = unpack;
 
-},{}],7:[function(_dereq_,module,exports){
+},{}],8:[function(_dereq_,module,exports){
 function pack(message)
 {
   throw new TypeError("Not yet implemented");
@@ -1507,7 +1529,7 @@ function unpack(message)
 exports.pack   = pack;
 exports.unpack = unpack;
 
-},{}],8:[function(_dereq_,module,exports){
+},{}],9:[function(_dereq_,module,exports){
 var JsonRPC = _dereq_('./JsonRPC');
 var XmlRPC  = _dereq_('./XmlRPC');
 
@@ -1515,7 +1537,7 @@ var XmlRPC  = _dereq_('./XmlRPC');
 exports.JsonRPC = JsonRPC;
 exports.XmlRPC  = XmlRPC;
 
-},{"./JsonRPC":6,"./XmlRPC":7}],9:[function(_dereq_,module,exports){
+},{"./JsonRPC":7,"./XmlRPC":8}],10:[function(_dereq_,module,exports){
 // Copyright Joyent, Inc. and other Node contributors.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a
@@ -1818,7 +1840,7 @@ function isUndefined(arg) {
   return arg === void 0;
 }
 
-},{}],10:[function(_dereq_,module,exports){
+},{}],11:[function(_dereq_,module,exports){
 // shim for using process in browser
 
 var process = module.exports = {};
@@ -1883,7 +1905,7 @@ process.chdir = function (dir) {
     throw new Error('process.chdir is not supported');
 };
 
-},{}],11:[function(_dereq_,module,exports){
+},{}],12:[function(_dereq_,module,exports){
 if (typeof Object.create === 'function') {
   // implementation from standard node.js 'util' module
   module.exports = function inherits(ctor, superCtor) {
@@ -1908,7 +1930,7 @@ if (typeof Object.create === 'function') {
   }
 }
 
-},{}],12:[function(_dereq_,module,exports){
+},{}],13:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -1922,7 +1944,7 @@ if ('_sockjs_onload' in global) {
 }
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./main":25,"./transport-list":27}],13:[function(_dereq_,module,exports){
+},{"./main":26,"./transport-list":28}],14:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -1941,7 +1963,7 @@ inherits(CloseEvent, Event);
 
 module.exports = CloseEvent;
 
-},{"./event":15,"inherits":11}],14:[function(_dereq_,module,exports){
+},{"./event":16,"inherits":12}],15:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -1994,7 +2016,7 @@ EventEmitter.prototype.removeListener = EventTarget.prototype.removeEventListene
 
 module.exports.EventEmitter = EventEmitter;
 
-},{"./eventtarget":16,"inherits":11}],15:[function(_dereq_,module,exports){
+},{"./eventtarget":17,"inherits":12}],16:[function(_dereq_,module,exports){
 'use strict';
 
 function Event(eventType) {
@@ -2018,7 +2040,7 @@ Event.BUBBLING_PHASE  = 3;
 
 module.exports = Event;
 
-},{}],16:[function(_dereq_,module,exports){
+},{}],17:[function(_dereq_,module,exports){
 'use strict';
 
 /* Simplified implementation of DOM2 EventTarget.
@@ -2080,7 +2102,7 @@ EventTarget.prototype.dispatchEvent = function(event) {
 
 module.exports = EventTarget;
 
-},{}],17:[function(_dereq_,module,exports){
+},{}],18:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -2097,7 +2119,7 @@ inherits(TransportMessageEvent, Event);
 
 module.exports = TransportMessageEvent;
 
-},{"./event":15,"inherits":11}],18:[function(_dereq_,module,exports){
+},{"./event":16,"inherits":12}],19:[function(_dereq_,module,exports){
 'use strict';
 
 var JSON3 = _dereq_('json3')
@@ -2126,7 +2148,7 @@ FacadeJS.prototype._close = function() {
 
 module.exports = FacadeJS;
 
-},{"./utils/iframe":58,"json3":68}],19:[function(_dereq_,module,exports){
+},{"./utils/iframe":59,"json3":69}],20:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -2232,7 +2254,7 @@ module.exports = function(SockJS, availableTransports) {
 };
 
 }).call(this,_dereq_("JkpR2F"))
-},{"./facade":18,"./info-iframe-receiver":21,"./location":24,"./utils/event":57,"./utils/iframe":58,"./utils/url":63,"JkpR2F":10,"debug":65,"json3":68}],20:[function(_dereq_,module,exports){
+},{"./facade":19,"./info-iframe-receiver":22,"./location":25,"./utils/event":58,"./utils/iframe":59,"./utils/url":64,"JkpR2F":11,"debug":66,"json3":69}],21:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -2285,7 +2307,7 @@ InfoAjax.prototype.close = function() {
 module.exports = InfoAjax;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"./utils/object":60,"JkpR2F":10,"debug":65,"events":14,"inherits":11,"json3":68}],21:[function(_dereq_,module,exports){
+},{"./utils/object":61,"JkpR2F":11,"debug":66,"events":15,"inherits":12,"json3":69}],22:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -2320,7 +2342,7 @@ InfoReceiverIframe.prototype.close = function() {
 
 module.exports = InfoReceiverIframe;
 
-},{"./info-ajax":20,"./transport/sender/xhr-local":48,"events":14,"inherits":11,"json3":68}],22:[function(_dereq_,module,exports){
+},{"./info-ajax":21,"./transport/sender/xhr-local":49,"events":15,"inherits":12,"json3":69}],23:[function(_dereq_,module,exports){
 (function (process,global){
 'use strict';
 
@@ -2393,7 +2415,7 @@ InfoIframe.prototype.close = function() {
 module.exports = InfoIframe;
 
 }).call(this,_dereq_("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./info-iframe-receiver":21,"./transport/iframe":33,"./utils/event":57,"JkpR2F":10,"debug":65,"events":14,"inherits":11,"json3":68}],23:[function(_dereq_,module,exports){
+},{"./info-iframe-receiver":22,"./transport/iframe":34,"./utils/event":58,"JkpR2F":11,"debug":66,"events":15,"inherits":12,"json3":69}],24:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -2486,7 +2508,7 @@ InfoReceiver.timeout = 8000;
 module.exports = InfoReceiver;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"./info-ajax":20,"./info-iframe":22,"./transport/sender/xdr":45,"./transport/sender/xhr-cors":46,"./transport/sender/xhr-fake":47,"./transport/sender/xhr-local":48,"./utils/url":63,"JkpR2F":10,"debug":65,"events":14,"inherits":11}],24:[function(_dereq_,module,exports){
+},{"./info-ajax":21,"./info-iframe":23,"./transport/sender/xdr":46,"./transport/sender/xhr-cors":47,"./transport/sender/xhr-fake":48,"./transport/sender/xhr-local":49,"./utils/url":64,"JkpR2F":11,"debug":66,"events":15,"inherits":12}],25:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -2500,7 +2522,7 @@ module.exports = global.location || {
 };
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],25:[function(_dereq_,module,exports){
+},{}],26:[function(_dereq_,module,exports){
 (function (process,global){
 'use strict';
 
@@ -2885,7 +2907,7 @@ module.exports = function(availableTransports) {
 };
 
 }).call(this,_dereq_("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./event/close":13,"./event/event":15,"./event/eventtarget":16,"./event/trans-message":17,"./iframe-bootstrap":19,"./info-receiver":23,"./location":24,"./shims":26,"./utils/browser":55,"./utils/escape":56,"./utils/event":57,"./utils/log":59,"./utils/object":60,"./utils/random":61,"./utils/transport":62,"./utils/url":63,"./version":64,"JkpR2F":10,"debug":65,"inherits":11,"json3":68,"url-parse":69}],26:[function(_dereq_,module,exports){
+},{"./event/close":14,"./event/event":16,"./event/eventtarget":17,"./event/trans-message":18,"./iframe-bootstrap":20,"./info-receiver":24,"./location":25,"./shims":27,"./utils/browser":56,"./utils/escape":57,"./utils/event":58,"./utils/log":60,"./utils/object":61,"./utils/random":62,"./utils/transport":63,"./utils/url":64,"./version":65,"JkpR2F":11,"debug":66,"inherits":12,"json3":69,"url-parse":70}],27:[function(_dereq_,module,exports){
 /* eslint-disable */
 /* jscs: disable */
 'use strict';
@@ -3360,7 +3382,7 @@ defineProperties(StringPrototype, {
     }
 }, hasNegativeSubstrBug);
 
-},{}],27:[function(_dereq_,module,exports){
+},{}],28:[function(_dereq_,module,exports){
 'use strict';
 
 module.exports = [
@@ -3380,7 +3402,7 @@ module.exports = [
 , _dereq_('./transport/jsonp-polling')
 ];
 
-},{"./transport/eventsource":31,"./transport/htmlfile":32,"./transport/jsonp-polling":34,"./transport/lib/iframe-wrap":37,"./transport/websocket":49,"./transport/xdr-polling":50,"./transport/xdr-streaming":51,"./transport/xhr-polling":52,"./transport/xhr-streaming":53}],28:[function(_dereq_,module,exports){
+},{"./transport/eventsource":32,"./transport/htmlfile":33,"./transport/jsonp-polling":35,"./transport/lib/iframe-wrap":38,"./transport/websocket":50,"./transport/xdr-polling":51,"./transport/xdr-streaming":52,"./transport/xhr-polling":53,"./transport/xhr-streaming":54}],29:[function(_dereq_,module,exports){
 (function (process,global){
 'use strict';
 
@@ -3569,17 +3591,17 @@ AbstractXHRObject.supportsCORS = cors;
 module.exports = AbstractXHRObject;
 
 }).call(this,_dereq_("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../utils/event":57,"../../utils/url":63,"JkpR2F":10,"debug":65,"events":14,"inherits":11}],29:[function(_dereq_,module,exports){
+},{"../../utils/event":58,"../../utils/url":64,"JkpR2F":11,"debug":66,"events":15,"inherits":12}],30:[function(_dereq_,module,exports){
 (function (global){
 module.exports = global.EventSource;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],30:[function(_dereq_,module,exports){
+},{}],31:[function(_dereq_,module,exports){
 (function (global){
 module.exports = global.WebSocket || global.MozWebSocket;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],31:[function(_dereq_,module,exports){
+},{}],32:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -3608,7 +3630,7 @@ EventSourceTransport.roundTrips = 2;
 
 module.exports = EventSourceTransport;
 
-},{"./lib/ajax-based":35,"./receiver/eventsource":40,"./sender/xhr-cors":46,"eventsource":29,"inherits":11}],32:[function(_dereq_,module,exports){
+},{"./lib/ajax-based":36,"./receiver/eventsource":41,"./sender/xhr-cors":47,"eventsource":30,"inherits":12}],33:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -3635,7 +3657,7 @@ HtmlFileTransport.roundTrips = 2;
 
 module.exports = HtmlFileTransport;
 
-},{"./lib/ajax-based":35,"./receiver/htmlfile":41,"./sender/xhr-local":48,"inherits":11}],33:[function(_dereq_,module,exports){
+},{"./lib/ajax-based":36,"./receiver/htmlfile":42,"./sender/xhr-local":49,"inherits":12}],34:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -3778,7 +3800,7 @@ IframeTransport.roundTrips = 2;
 module.exports = IframeTransport;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"../utils/event":57,"../utils/iframe":58,"../utils/random":61,"../utils/url":63,"../version":64,"JkpR2F":10,"debug":65,"events":14,"inherits":11,"json3":68}],34:[function(_dereq_,module,exports){
+},{"../utils/event":58,"../utils/iframe":59,"../utils/random":62,"../utils/url":64,"../version":65,"JkpR2F":11,"debug":66,"events":15,"inherits":12,"json3":69}],35:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -3816,7 +3838,7 @@ JsonPTransport.needBody = true;
 module.exports = JsonPTransport;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./lib/sender-receiver":39,"./receiver/jsonp":42,"./sender/jsonp":44,"inherits":11}],35:[function(_dereq_,module,exports){
+},{"./lib/sender-receiver":40,"./receiver/jsonp":43,"./sender/jsonp":45,"inherits":12}],36:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -3869,7 +3891,7 @@ inherits(AjaxBasedTransport, SenderReceiver);
 module.exports = AjaxBasedTransport;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"../../utils/url":63,"./sender-receiver":39,"JkpR2F":10,"debug":65,"inherits":11}],36:[function(_dereq_,module,exports){
+},{"../../utils/url":64,"./sender-receiver":40,"JkpR2F":11,"debug":66,"inherits":12}],37:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -3960,7 +3982,7 @@ BufferedSender.prototype.stop = function() {
 module.exports = BufferedSender;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":10,"debug":65,"events":14,"inherits":11}],37:[function(_dereq_,module,exports){
+},{"JkpR2F":11,"debug":66,"events":15,"inherits":12}],38:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -3997,7 +4019,7 @@ module.exports = function(transport) {
 };
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../utils/object":60,"../iframe":33,"inherits":11}],38:[function(_dereq_,module,exports){
+},{"../../utils/object":61,"../iframe":34,"inherits":12}],39:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -4058,7 +4080,7 @@ Polling.prototype.abort = function() {
 module.exports = Polling;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":10,"debug":65,"events":14,"inherits":11}],39:[function(_dereq_,module,exports){
+},{"JkpR2F":11,"debug":66,"events":15,"inherits":12}],40:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -4107,7 +4129,7 @@ SenderReceiver.prototype.close = function() {
 module.exports = SenderReceiver;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"../../utils/url":63,"./buffered-sender":36,"./polling":38,"JkpR2F":10,"debug":65,"inherits":11}],40:[function(_dereq_,module,exports){
+},{"../../utils/url":64,"./buffered-sender":37,"./polling":39,"JkpR2F":11,"debug":66,"inherits":12}],41:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -4174,7 +4196,7 @@ EventSourceReceiver.prototype._close = function(reason) {
 module.exports = EventSourceReceiver;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":10,"debug":65,"events":14,"eventsource":29,"inherits":11}],41:[function(_dereq_,module,exports){
+},{"JkpR2F":11,"debug":66,"events":15,"eventsource":30,"inherits":12}],42:[function(_dereq_,module,exports){
 (function (process,global){
 'use strict';
 
@@ -4263,7 +4285,7 @@ HtmlfileReceiver.enabled = HtmlfileReceiver.htmlfileEnabled || iframeUtils.ifram
 module.exports = HtmlfileReceiver;
 
 }).call(this,_dereq_("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../utils/iframe":58,"../../utils/random":61,"../../utils/url":63,"JkpR2F":10,"debug":65,"events":14,"inherits":11}],42:[function(_dereq_,module,exports){
+},{"../../utils/iframe":59,"../../utils/random":62,"../../utils/url":64,"JkpR2F":11,"debug":66,"events":15,"inherits":12}],43:[function(_dereq_,module,exports){
 (function (process,global){
 'use strict';
 
@@ -4446,7 +4468,7 @@ JsonpReceiver.prototype._createScript = function(url) {
 module.exports = JsonpReceiver;
 
 }).call(this,_dereq_("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../utils/browser":55,"../../utils/iframe":58,"../../utils/random":61,"../../utils/url":63,"JkpR2F":10,"debug":65,"events":14,"inherits":11}],43:[function(_dereq_,module,exports){
+},{"../../utils/browser":56,"../../utils/iframe":59,"../../utils/random":62,"../../utils/url":64,"JkpR2F":11,"debug":66,"events":15,"inherits":12}],44:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -4520,7 +4542,7 @@ XhrReceiver.prototype.abort = function() {
 module.exports = XhrReceiver;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":10,"debug":65,"events":14,"inherits":11}],44:[function(_dereq_,module,exports){
+},{"JkpR2F":11,"debug":66,"events":15,"inherits":12}],45:[function(_dereq_,module,exports){
 (function (process,global){
 'use strict';
 
@@ -4623,7 +4645,7 @@ module.exports = function(url, payload, callback) {
 };
 
 }).call(this,_dereq_("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../utils/random":61,"../../utils/url":63,"JkpR2F":10,"debug":65}],45:[function(_dereq_,module,exports){
+},{"../../utils/random":62,"../../utils/url":64,"JkpR2F":11,"debug":66}],46:[function(_dereq_,module,exports){
 (function (process,global){
 'use strict';
 
@@ -4728,7 +4750,7 @@ XDRObject.enabled = !!(global.XDomainRequest && browser.hasDomain());
 module.exports = XDRObject;
 
 }).call(this,_dereq_("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../utils/browser":55,"../../utils/event":57,"../../utils/url":63,"JkpR2F":10,"debug":65,"events":14,"inherits":11}],46:[function(_dereq_,module,exports){
+},{"../../utils/browser":56,"../../utils/event":58,"../../utils/url":64,"JkpR2F":11,"debug":66,"events":15,"inherits":12}],47:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -4745,7 +4767,7 @@ XHRCorsObject.enabled = XhrDriver.enabled && XhrDriver.supportsCORS;
 
 module.exports = XHRCorsObject;
 
-},{"../driver/xhr":28,"inherits":11}],47:[function(_dereq_,module,exports){
+},{"../driver/xhr":29,"inherits":12}],48:[function(_dereq_,module,exports){
 'use strict';
 
 var EventEmitter = _dereq_('events').EventEmitter
@@ -4771,7 +4793,7 @@ XHRFake.timeout = 2000;
 
 module.exports = XHRFake;
 
-},{"events":14,"inherits":11}],48:[function(_dereq_,module,exports){
+},{"events":15,"inherits":12}],49:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -4790,7 +4812,7 @@ XHRLocalObject.enabled = XhrDriver.enabled;
 
 module.exports = XHRLocalObject;
 
-},{"../driver/xhr":28,"inherits":11}],49:[function(_dereq_,module,exports){
+},{"../driver/xhr":29,"inherits":12}],50:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -4892,7 +4914,7 @@ WebSocketTransport.roundTrips = 2;
 module.exports = WebSocketTransport;
 
 }).call(this,_dereq_("JkpR2F"))
-},{"../utils/event":57,"../utils/url":63,"./driver/websocket":30,"JkpR2F":10,"debug":65,"events":14,"inherits":11}],50:[function(_dereq_,module,exports){
+},{"../utils/event":58,"../utils/url":64,"./driver/websocket":31,"JkpR2F":11,"debug":66,"events":15,"inherits":12}],51:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -4917,7 +4939,7 @@ XdrPollingTransport.roundTrips = 2; // preflight, ajax
 
 module.exports = XdrPollingTransport;
 
-},{"./lib/ajax-based":35,"./receiver/xhr":43,"./sender/xdr":45,"./xdr-streaming":51,"inherits":11}],51:[function(_dereq_,module,exports){
+},{"./lib/ajax-based":36,"./receiver/xhr":44,"./sender/xdr":46,"./xdr-streaming":52,"inherits":12}],52:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -4951,7 +4973,7 @@ XdrStreamingTransport.roundTrips = 2; // preflight, ajax
 
 module.exports = XdrStreamingTransport;
 
-},{"./lib/ajax-based":35,"./receiver/xhr":43,"./sender/xdr":45,"inherits":11}],52:[function(_dereq_,module,exports){
+},{"./lib/ajax-based":36,"./receiver/xhr":44,"./sender/xdr":46,"inherits":12}],53:[function(_dereq_,module,exports){
 'use strict';
 
 var inherits = _dereq_('inherits')
@@ -4986,7 +5008,7 @@ XhrPollingTransport.roundTrips = 2; // preflight, ajax
 
 module.exports = XhrPollingTransport;
 
-},{"./lib/ajax-based":35,"./receiver/xhr":43,"./sender/xhr-cors":46,"./sender/xhr-local":48,"inherits":11}],53:[function(_dereq_,module,exports){
+},{"./lib/ajax-based":36,"./receiver/xhr":44,"./sender/xhr-cors":47,"./sender/xhr-local":49,"inherits":12}],54:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -5031,7 +5053,7 @@ XhrStreamingTransport.needBody = !!global.document;
 module.exports = XhrStreamingTransport;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../utils/browser":55,"./lib/ajax-based":35,"./receiver/xhr":43,"./sender/xhr-cors":46,"./sender/xhr-local":48,"inherits":11}],54:[function(_dereq_,module,exports){
+},{"../utils/browser":56,"./lib/ajax-based":36,"./receiver/xhr":44,"./sender/xhr-cors":47,"./sender/xhr-local":49,"inherits":12}],55:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -5052,7 +5074,7 @@ if (global.crypto && global.crypto.getRandomValues) {
 }
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],55:[function(_dereq_,module,exports){
+},{}],56:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -5083,7 +5105,7 @@ module.exports = {
 };
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],56:[function(_dereq_,module,exports){
+},{}],57:[function(_dereq_,module,exports){
 'use strict';
 
 var JSON3 = _dereq_('json3');
@@ -5134,7 +5156,7 @@ module.exports = {
   }
 };
 
-},{"json3":68}],57:[function(_dereq_,module,exports){
+},{"json3":69}],58:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -5211,7 +5233,7 @@ if (!isChromePackagedApp) {
 }
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./random":61}],58:[function(_dereq_,module,exports){
+},{"./random":62}],59:[function(_dereq_,module,exports){
 (function (process,global){
 'use strict';
 
@@ -5396,7 +5418,7 @@ if (global.document) {
 }
 
 }).call(this,_dereq_("JkpR2F"),typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./browser":55,"./event":57,"JkpR2F":10,"debug":65,"json3":68}],59:[function(_dereq_,module,exports){
+},{"./browser":56,"./event":58,"JkpR2F":11,"debug":66,"json3":69}],60:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -5411,7 +5433,7 @@ var logObject = {};
 module.exports = logObject;
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],60:[function(_dereq_,module,exports){
+},{}],61:[function(_dereq_,module,exports){
 'use strict';
 
 module.exports = {
@@ -5437,7 +5459,7 @@ module.exports = {
   }
 };
 
-},{}],61:[function(_dereq_,module,exports){
+},{}],62:[function(_dereq_,module,exports){
 'use strict';
 
 /* global crypto:true */
@@ -5468,7 +5490,7 @@ module.exports = {
   }
 };
 
-},{"crypto":54}],62:[function(_dereq_,module,exports){
+},{"crypto":55}],63:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -5522,7 +5544,7 @@ module.exports = function(availableTransports) {
 };
 
 }).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":10,"debug":65}],63:[function(_dereq_,module,exports){
+},{"JkpR2F":11,"debug":66}],64:[function(_dereq_,module,exports){
 (function (process){
 'use strict';
 
@@ -5573,9 +5595,9 @@ module.exports = {
 };
 
 }).call(this,_dereq_("JkpR2F"))
-},{"JkpR2F":10,"debug":65,"url-parse":69}],64:[function(_dereq_,module,exports){
+},{"JkpR2F":11,"debug":66,"url-parse":70}],65:[function(_dereq_,module,exports){
 module.exports = '1.0.3';
-},{}],65:[function(_dereq_,module,exports){
+},{}],66:[function(_dereq_,module,exports){
 
 /**
  * This is the web browser implementation of `debug()`.
@@ -5745,7 +5767,7 @@ function localstorage(){
   } catch (e) {}
 }
 
-},{"./debug":66}],66:[function(_dereq_,module,exports){
+},{"./debug":67}],67:[function(_dereq_,module,exports){
 
 /**
  * This is the common logic for both the Node.js and web browser
@@ -5944,7 +5966,7 @@ function coerce(val) {
   return val;
 }
 
-},{"ms":67}],67:[function(_dereq_,module,exports){
+},{"ms":68}],68:[function(_dereq_,module,exports){
 /**
  * Helpers.
  */
@@ -6071,7 +6093,7 @@ function plural(ms, n, name) {
   return Math.ceil(ms / n) + ' ' + name + 's';
 }
 
-},{}],68:[function(_dereq_,module,exports){
+},{}],69:[function(_dereq_,module,exports){
 (function (global){
 /*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
 ;(function () {
@@ -6977,7 +6999,7 @@ function plural(ms, n, name) {
 }).call(this);
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],69:[function(_dereq_,module,exports){
+},{}],70:[function(_dereq_,module,exports){
 'use strict';
 
 var required = _dereq_('requires-port')
@@ -7207,7 +7229,7 @@ URL.qs = qs;
 URL.location = lolcation;
 module.exports = URL;
 
-},{"./lolcation":70,"querystringify":71,"requires-port":72}],70:[function(_dereq_,module,exports){
+},{"./lolcation":71,"querystringify":72,"requires-port":73}],71:[function(_dereq_,module,exports){
 (function (global){
 'use strict';
 
@@ -7256,7 +7278,7 @@ module.exports = function lolcation(loc) {
 };
 
 }).call(this,typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"./":69}],71:[function(_dereq_,module,exports){
+},{"./":70}],72:[function(_dereq_,module,exports){
 'use strict';
 
 var has = Object.prototype.hasOwnProperty;
@@ -7319,7 +7341,7 @@ function querystringify(obj, prefix) {
 exports.stringify = querystringify;
 exports.parse = querystring;
 
-},{}],72:[function(_dereq_,module,exports){
+},{}],73:[function(_dereq_,module,exports){
 'use strict';
 
 /**
@@ -7359,7 +7381,7 @@ module.exports = function required(port, protocol) {
   return port !== 0;
 };
 
-},{}],73:[function(_dereq_,module,exports){
+},{}],74:[function(_dereq_,module,exports){
 
 /**
  * Module dependencies.
@@ -7404,6 +7426,6 @@ function ws(uri, protocols, opts) {
 
 if (WebSocket) ws.prototype = WebSocket.prototype;
 
-},{}]},{},[5])
-(5)
+},{}]},{},[6])
+(6)
 });

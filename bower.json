@@ -1,0 +1,26 @@
+{
+  "name": "kurento-jsonrpc",
+  "description": "RPC library for browser and Node.js",
+  "license": "LGPL 2.1",
+  "keywords": [
+    "RPC",
+    "JsonRPC",
+    "XML-RPC",
+    "HTTP",
+    "WebP2P",
+    "WebSocket",
+    "DataChannel",
+    "WebWorker",
+    "postMessage",
+    "pipe",
+    "stream"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "Kurento/kurento-jsonrpc-js"
+  },
+  "authors": [
+    "Kurento <info@kurento.org> (http://kurento.org)",
+    "Jesús Leganés Combarro 'piranna' <piranna@gmail.com>"
+  ]
+}
