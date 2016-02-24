@@ -522,7 +522,7 @@ function WebSocketWithReconnection(config) {
         };
 
         var onErrorOrClose = function(error) {
-            console.log("Reconnection error: " + error);
+            console.log("Reconnection error: ", error);
 
             if (numRetries === maxRetries) {
                 if (config.ondisconnect) {
@@ -536,7 +536,6 @@ function WebSocketWithReconnection(config) {
         };
 
         newWs.onerror = onErrorOrClose;
-        newWs.onclose = onErrorOrClose;
 
         ws = newWs;
     }
