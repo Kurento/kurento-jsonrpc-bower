@@ -1286,7 +1286,7 @@ function RpcBuilder(packer, options, transport, onRequest)
     catch(e)
     {
       // Ignore invalid messages
-      return console.debug(e, message);
+      return console.log(e, message);
     };
 
     var id     = message.id;
@@ -7107,7 +7107,8 @@ module.exports = '1.0.3';
 var required = _dereq_('requires-port')
   , lolcation = _dereq_('./lolcation')
   , qs = _dereq_('querystringify')
-  , relativere = /^\/(?!\/)/;
+  , relativere = /^\/(?!\/)/
+  , protocolre = /^([a-z0-9.+-]+:)?(\/\/)?(.*)$/i; // actual protocol is first match
 
 /**
  * These are the parse instructions for the URL parsers, it informs the parser
@@ -7124,13 +7125,36 @@ var required = _dereq_('requires-port')
 var instructions = [
   ['#', 'hash'],                        // Extract from the back.
   ['?', 'query'],                       // Extract from the back.
-  ['//', 'protocol', 2, 1, 1],          // Extract from the front.
   ['/', 'pathname'],                    // Extract from the back.
   ['@', 'auth', 1],                     // Extract from the front.
   [NaN, 'host', undefined, 1, 1],       // Set left over value.
   [/\:(\d+)$/, 'port'],                 // RegExp the back.
   [NaN, 'hostname', undefined, 1, 1]    // Set left over.
 ];
+
+ /**
+ * @typedef ProtocolExtract
+ * @type Object
+ * @property {String} protocol Protocol matched in the URL, in lowercase
+ * @property {Boolean} slashes Indicates whether the protocol is followed by double slash ("//")
+ * @property {String} rest     Rest of the URL that is not part of the protocol
+ */
+
+ /**
+  * Extract protocol information from a URL with/without double slash ("//")
+  *
+  * @param  {String} address   URL we want to extract from.
+  * @return {ProtocolExtract}  Extracted information
+  * @private
+  */
+function extractProtocol(address) {
+  var match = protocolre.exec(address);
+  return {
+    protocol: match[1] ? match[1].toLowerCase() : '',
+    slashes: !!match[2],
+    rest: match[3] ? match[3] : ''
+  };
+}
 
 /**
  * The actual URL instance. Instead of returning an object we've opted-in to
@@ -7139,8 +7163,8 @@ var instructions = [
  *
  * @constructor
  * @param {String} address URL we want to parse.
- * @param {Boolean|function} parser Parser for the query string.
- * @param {Object} location Location defaults for relative paths.
+ * @param {Object|String} location Location defaults for relative paths.
+ * @param {Boolean|Function} parser Parser for the query string.
  * @api public
  */
 function URL(address, location, parser) {
@@ -7175,6 +7199,12 @@ function URL(address, location, parser) {
   }
 
   location = lolcation(location);
+
+  // extract protocol information before running the instructions
+  var extracted = extractProtocol(address);
+  url.protocol = extracted.protocol || location.protocol || '';
+  url.slashes = extracted.slashes || location.slashes;
+  address = extracted.rest;
 
   for (; i < instructions.length; i++) {
     instruction = instructions[i];
@@ -7246,8 +7276,12 @@ function URL(address, location, parser) {
  * This is convenience method for changing properties in the URL instance to
  * insure that they all propagate correctly.
  *
- * @param {String} prop Property we need to adjust.
- * @param {Mixed} value The newly assigned value.
+ * @param {String} prop          Property we need to adjust.
+ * @param {Mixed} value          The newly assigned value.
+ * @param {Boolean|Function} fn  When setting the query, it will be the function used to parse
+ *                               the query.
+ *                               When setting the protocol, double slash will be removed from
+ *                               the final url if it is true.
  * @returns {URL}
  * @api public
  */
@@ -7282,6 +7316,9 @@ URL.prototype.set = function set(part, value, fn) {
       url.hostname = value[0];
       url.port = value[1];
     }
+  } else if ('protocol' === part) {
+    url.protocol = value;
+    url.slashes = !fn;
   } else {
     url[part] = value;
   }
@@ -7302,7 +7339,11 @@ URL.prototype.toString = function toString(stringify) {
 
   var query
     , url = this
-    , result = url.protocol +'//';
+    , protocol = url.protocol;
+
+  if (protocol && protocol.charAt(protocol.length - 1) !== ':') protocol += ':';
+
+  var result = protocol + (url.slashes ? '//' : '');
 
   if (url.username) {
     result += url.username;
@@ -7354,7 +7395,7 @@ var ignore = { hash: 1, query: 1 }
  * encoded in the `pathname` so we can thankfully generate a good "default"
  * location from it so we can generate proper relative URL's again.
  *
- * @param {Object} loc Optional default location object.
+ * @param {Object|String} loc Optional default location object.
  * @returns {Object} lolcation object.
  * @api public
  */
