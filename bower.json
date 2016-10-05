@@ -1,7 +1,7 @@
 {
   "name": "kurento-jsonrpc",
   "description": "RPC library for browser and Node.js",
-  "license": "ALv2",
+  "license": "Apache-2.0",
   "keywords": [
     "RPC",
     "JsonRPC",
