@@ -391,7 +391,7 @@ var WebSocketWithReconnection = require('./webSocketWithReconnection');
 exports.WebSocketWithReconnection = WebSocketWithReconnection;
 
 },{"./webSocketWithReconnection":5}],5:[function(require,module,exports){
-(function (global){
+(function (global){(function (){
 /*
  * (C) Copyright 2013-2015 Kurento (http://kurento.org/)
  *
@@ -639,7 +639,7 @@ function WebSocketWithReconnection(config) {
 
 module.exports = WebSocketWithReconnection;
 
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+}).call(this)}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
 },{"ws":undefined}],6:[function(require,module,exports){
 /*
